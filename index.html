@@ -7,79 +7,118 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Верхняя часть с крупным заголовком -->
-    <header>
-        <h1>ЖУРНАЛ ЗАЯВОК</h1>
-        <p>Панель мастера — Управление ремонтами</p>
-        
-        <!-- Вкладки, которые свешиваются вниз -->
-        <div class="tabs">
-            <button class="tab-btn">Заявки</button>
-            <button class="tab-btn">Отчеты</button>
-            <button class="tab-btn">Склад</button>
-            <button class="tab-btn">Персонал</button>
-        </div>
-    </header>
-
-    <!-- Основная рабочая зона -->
     <div class="container">
-        <!-- Форма создания (левая колонка) -->
-        <section class="card form-section">
-            <h2>Создать заявку</h2>
-            <form id="requestForm">
-                <input type="text" id="title" placeholder="Что сломалось? (Пускатель ПВИ-125)" required>
-                <input type="text" id="location" placeholder="Где находится? (Горизонт, участок)" required>
-                <textarea id="description" placeholder="Описание проблемы (необязательно)"></textarea>
-                
-                <div class="select-group">
-                    <label>Категория работ:</label>
-                    <select id="category">
-                        <option value="Электрика">Электрика</option>
-                        <option value="Слесарные работы">Слесарные работы</option>
-                        <option value="Сварка">Сварка</option>
-                        <option value="Токарные работы">Токарные работы</option>
-                    </select>
+        <header>
+            <h1>Журнал заявок</h1>
+            <p>Панель мастера (Синхронизация с приложением)</p>
+        </header>
+
+        <main>
+            <!-- Навигация по вкладкам -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('requestsTab', this)">ЗАЯВКИ</button>
+                <button class="tab-btn" onclick="switchTab('reportsTab', this)">ОТЧЕТЫ</button>
+                <button class="tab-btn" onclick="switchTab('warehouseTab', this)">СКЛАД</button>
+                <button class="tab-btn" onclick="switchTab('staffTab', this)">ПЕРСОНАЛ</button>
+            </div>
+
+            <!-- Вкладка 1: Заявки -->
+            <div id="requestsTab" class="tab-content active-content">
+                <div class="requests-layout">
+                    <!-- Форма создания заявки -->
+                    <section class="form-section">
+                        <h2>Создать новую заявку</h2>
+                        <form id="requestForm">
+                            <input type="text" id="title" placeholder="Что сломалось? (Например: Пускатель ПВИ-125)" required>
+                            <input type="text" id="location" placeholder="Где находится? (Горизонт, участок)" required>
+                            <textarea id="description" placeholder="Описание проблемы (необязательно)"></textarea>
+                            
+                            <div class="select-group">
+                                <label>Категория работ:</label>
+                                <select id="category">
+                                    <option value="Электрика">Электрика</option>
+                                    <option value="Слесарные работы">Слесарные работы</option>
+                                    <option value="Сварка">Сварка</option>
+                                    <option value="Токарные работы">Токарные работы</option>
+                                </select>
+                            </div>
+
+                            <div class="select-group">
+                                <label>Приоритет:</label>
+                                <select id="priority">
+                                    <option value="Обычный">Обычный</option>
+                                    <option value="Срочно">Срочно</option>
+                                    <option value="Авария">Авария</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" id="submitBtn">Создать заявку</button>
+                        </form>
+                    </section>
+
+                    <!-- Таблица заявок -->
+                    <section class="table-section">
+                        <h2>Все заявки</h2>
+                        <table id="requestsTable">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Что сломалось</th>
+                                    <th>Категория</th>
+                                    <th>Место</th>
+                                    <th>Приоритет</th>
+                                    <th>Статус</th>
+                                    <th>Исполнитель</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Данные загрузятся из Firebase -->
+                            </tbody>
+                        </table>
+                    </section>
                 </div>
+            </div>
 
-                <div class="select-group">
-                    <label>Приоритет:</label>
-                    <select id="priority">
-                        <option value="Обычный">Обычный</option>
-                        <option value="Срочно">Срочно</option>
-                        <option value="Авария">Авария</option>
-                    </select>
+            <!-- Вкладка 2: Персонал -->
+            <div id="staffTab" class="tab-content">
+                <section class="table-section" style="width: 100%;">
+                    <h2>Список зарегистрированных сотрудников</h2>
+                    <table id="staffTable">
+                        <thead>
+                            <tr>
+                                <th>Email сотрудника</th>
+                                <th>Специальность (Роль)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staffBody">
+                            <!-- Данные загрузятся из Firebase -->
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+
+            <!-- Заглушки для других вкладок -->
+            <div id="reportsTab" class="tab-content">
+                <div class="placeholder-box">
+                    <h2>Раздел "Отчеты" в разработке...</h2>
+                    <p>Здесь будет формироваться статистика по выполненным заявкам и выгрузка в Excel.</p>
                 </div>
+            </div>
+            <div id="warehouseTab" class="tab-content">
+                <div class="placeholder-box">
+                    <h2>Раздел "Склад" в разработке...</h2>
+                    <p>Здесь будет учитываться расход запасных частей и инструментов.</p>
+                </div>
+            </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">Создать заявку</button>
-            </form>
-        </section>
-
-        <!-- Таблица (правая колонка) -->
-        <section class="card table-section">
-            <h2>Все заявки</h2>
-            <table id="requestsTable">
-                <thead>
-                    <tr>
-                        <th>Дата</th>
-                        <th>Что сломалось</th>
-                        <th>Категория</th>
-                        <th>Место</th>
-                        <th>Приоритет</th>
-                        <th>Статус</th>
-                        <th>Исполнитель</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Сюда падают данные -->
-                </tbody>
-            </table>
-        </section>
+        </main>
+        
+        <footer>
+            ЖУРНАЛ ЗАЯВОК © 2026 • ВНУТРЕННЯЯ СИСТЕМА ПРЕДПРИЯТИЯ
+        </footer>
     </div>
 
-    <footer>
-        Журнал заявок &copy; 2026 • Внутренняя система предприятия
-    </footer>
-
+    <!-- Подключаем Firebase SDK -->
     <script type="module" src="app.js"></script>
 </body>
 </html>
