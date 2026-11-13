@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журнал заявок - Панель мастера</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Верхняя часть с крупным заголовком -->
+    <header>
+        <h1>ЖУРНАЛ ЗАЯВОК</h1>
+        <p>Панель мастера — Управление ремонтами</p>
+        
+        <!-- Вкладки, которые свешиваются вниз -->
+        <div class="tabs">
+            <button class="tab-btn">Заявки</button>
+            <button class="tab-btn">Отчеты</button>
+            <button class="tab-btn">Склад</button>
+            <button class="tab-btn">Персонал</button>
+        </div>
+    </header>
+
+    <!-- Основная рабочая зона -->
+    <div class="container">
+        <!-- Форма создания (левая колонка) -->
+        <section class="card form-section">
+            <h2>Создать заявку</h2>
+            <form id="requestForm">
+                <input type="text" id="title" placeholder="Что сломалось? (Пускатель ПВИ-125)" required>
+                <input type="text" id="location" placeholder="Где находится? (Горизонт, участок)" required>
+                <textarea id="description" placeholder="Описание проблемы (необязательно)"></textarea>
+                
+                <div class="select-group">
+                    <label>Категория работ:</label>
+                    <select id="category">
+                        <option value="Электрика">Электрика</option>
+                        <option value="Слесарные работы">Слесарные работы</option>
+                        <option value="Сварка">Сварка</option>
+                        <option value="Токарные работы">Токарные работы</option>
+                    </select>
+                </div>
+
+                <div class="select-group">
+                    <label>Приоритет:</label>
+                    <select id="priority">
+                        <option value="Обычный">Обычный</option>
+                        <option value="Срочно">Срочно</option>
+                        <option value="Авария">Авария</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Создать заявку</button>
+            </form>
+        </section>
+
+        <!-- Таблица (правая колонка) -->
+        <section class="card table-section">
+            <h2>Все заявки</h2>
+            <table id="requestsTable">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Что сломалось</th>
+                        <th>Категория</th>
+                        <th>Место</th>
+                        <th>Приоритет</th>
+                        <th>Статус</th>
+                        <th>Исполнитель</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Сюда падают данные -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        Журнал заявок &copy; 2026 • Внутренняя система предприятия
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
